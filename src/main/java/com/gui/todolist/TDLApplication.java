@@ -12,7 +12,7 @@ public class TDLApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TDLApplication.class.getResource("gui-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("ToDoList");
         stage.setScene(scene);
         stage.show();
     }
