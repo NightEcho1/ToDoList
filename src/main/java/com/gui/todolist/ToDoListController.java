@@ -1,14 +1,45 @@
 package com.gui.todolist;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
-public class ToDoListController {
-    @FXML
-    private Label welcomeText;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+public class ToDoListController implements Initializable {
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        datePicker.setValue(LocalDate.now());
+    }
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    Button addButton;
+    @FXML
+    TextField descriptionTextField;
+    @FXML
+    DatePicker datePicker;
+    @FXML
+    ListView<LocalEvent> eventList;
+
+    ObservableList<LocalEvent> list = FXCollections.observableArrayList();
+
+    @FXML
+    private void addEvent(Event e) {
+        list.add(new LocalEvent(datePicker.getValue(), descriptionTextField.getText()));
+        eventList.setItems(list);
+        refresh();
+    }
+
+    private void refresh() {
+        datePicker.setValue(LocalDate.now());
+        descriptionTextField.setText(null);
     }
 }

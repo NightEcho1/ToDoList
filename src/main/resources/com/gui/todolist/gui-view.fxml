@@ -8,18 +8,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <SplitPane dividerPositions="0.5" orientation="VERTICAL" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.todolist.ToDoListController">
    <items>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="858.0">
          <children>
-            <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="Добавить запись" />
-            <DatePicker layoutX="171.0" layoutY="12.0" prefHeight="26.0" prefWidth="214.0" />
-            <TextField layoutX="409.0" layoutY="12.0" prefHeight="26.0" prefWidth="430.0" />
+            <Button fx:id="addButton" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#addEvent" text="Добавить запись" />
+            <DatePicker fx:id="datePicker" layoutX="171.0" layoutY="12.0" prefHeight="26.0" prefWidth="214.0" />
+            <TextField fx:id="descriptionTextField" layoutX="409.0" layoutY="12.0" prefHeight="26.0" prefWidth="430.0" promptText="Добавить заметку..." />
             <Separator layoutX="151.0" layoutY="1.0" orientation="VERTICAL" prefHeight="48.0" prefWidth="6.4" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="151.0" AnchorPane.topAnchor="1.0" />
             <Separator layoutX="395.0" layoutY="1.0" orientation="VERTICAL" prefHeight="48.0" prefWidth="6.4" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="1.0" />
          </children>
       </AnchorPane>
-      <ListView prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="eventList" prefHeight="200.0" prefWidth="200.0" />
    </items>
 </SplitPane>
