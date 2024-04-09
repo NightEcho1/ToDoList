@@ -2,7 +2,6 @@ package com.gui.todolist;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,6 +22,8 @@ public class ToDoListController implements Initializable {
     @FXML
     Button addButton;
     @FXML
+    Button deleteButton;
+    @FXML
     TextField descriptionTextField;
     @FXML
     DatePicker datePicker;
@@ -32,10 +33,18 @@ public class ToDoListController implements Initializable {
     ObservableList<LocalEvent> list = FXCollections.observableArrayList();
 
     @FXML
-    private void addEvent(Event e) {
+    private void addEvent() {
         list.add(new LocalEvent(datePicker.getValue(), descriptionTextField.getText()));
         eventList.setItems(list);
         refresh();
+    }
+
+    @FXML
+    private void deleteEvent() {
+        int selectedIndex = eventList.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            eventList.getItems().remove(selectedIndex);
+        }
     }
 
     private void refresh() {
