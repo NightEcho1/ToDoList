@@ -46,7 +46,7 @@ public class ToDoListController implements Initializable {
             eventList.getItems().remove(selectedIndex);
         }
     }
-
+//Установка значений по умолчанию
     private void refresh() {
         datePicker.setValue(LocalDate.now());
         descriptionTextField.setText(null);
