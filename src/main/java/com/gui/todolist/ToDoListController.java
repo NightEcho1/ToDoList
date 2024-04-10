@@ -31,14 +31,14 @@ public class ToDoListController implements Initializable {
     ListView<LocalEvent> eventList;
 
     ObservableList<LocalEvent> list = FXCollections.observableArrayList();
-
+//метод для добавление заметки
     @FXML
     private void addEvent() {
         list.add(new LocalEvent(datePicker.getValue(), descriptionTextField.getText()));
         eventList.setItems(list);
         refresh();
     }
-
+    //метод для удаления заметки
     @FXML
     private void deleteEvent() {
         int selectedIndex = eventList.getSelectionModel().getSelectedIndex();
