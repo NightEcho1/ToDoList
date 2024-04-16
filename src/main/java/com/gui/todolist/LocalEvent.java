@@ -26,9 +26,9 @@ public class LocalEvent {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
     @Override
     public String toString() {
         return "На: " + this.getDate() + " " + this.getDescription();
     }
+
 }
