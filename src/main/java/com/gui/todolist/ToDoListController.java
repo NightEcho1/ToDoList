@@ -63,11 +63,12 @@ public class ToDoListController implements Initializable {
         LocalDate date = datePicker.getValue();
         String description = descriptionTextField.getText();
 
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt",true))) {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt"))) {
             writer.write(date.toString());
             writer.write(", ");
             writer.write(description);
             writer.newLine();
+            writer.close();
         } catch (IOException ex) {
             System.out.println("Error message: " + ex);
         }
