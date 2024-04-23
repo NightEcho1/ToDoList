@@ -11,8 +11,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class ToDoListController implements Initializable {
 
@@ -20,6 +22,7 @@ public class ToDoListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         datePicker.setValue(LocalDate.now());
+        getFromFile();
     }
 
     @FXML
@@ -63,14 +66,47 @@ public class ToDoListController implements Initializable {
         LocalDate date = datePicker.getValue();
         String description = descriptionTextField.getText();
 
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt"))) {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt",true))) {
             writer.write(date.toString());
-            writer.write(", ");
+            writer.write(": ");
             writer.write(description);
             writer.newLine();
-            writer.close();
         } catch (IOException ex) {
             System.out.println("Error message: " + ex);
         }
+    }
+
+    public void getFromFile() {
+
+        try (Scanner fileReader = new Scanner(Paths.get("log.txt"))) {
+
+            while (fileReader.hasNextLine()) {
+
+                String logStr = fileReader.nextLine();
+
+                LocalEvent event = parseEvent(logStr);
+
+                if (!list.contains(event)) {
+
+                    list.add(event);
+
+                }
+            }
+        } catch (IOException exceptionIOE) {
+
+            System.out.println(exceptionIOE);
+        }
+    }
+
+    private LocalEvent parseEvent(String logStr) {
+
+        String[] parts = logStr.split(": ");
+
+        LocalDate date = LocalDate.parse(parts[0]);
+
+        String description = parts[1];
+
+        return new LocalEvent(date, description);
+
     }
 }
