@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,6 +39,10 @@ public class ToDoListController implements Initializable {
     //метод для добавление заметки
     @FXML
     private void addEvent() {
+        String description = descriptionTextField.getText();
+        if (description.isEmpty()) {
+            return;
+        }
         list.add(new LocalEvent(datePicker.getValue(), descriptionTextField.getText()));
         eventList.setItems(list);
         saveToFile();
@@ -68,7 +70,7 @@ public class ToDoListController implements Initializable {
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt",true))) {
             writer.write(date.toString());
-            writer.write(": ");
+            writer.write(": " + "\n");
             writer.write(description);
             writer.newLine();
         } catch (IOException ex) {
@@ -77,36 +79,28 @@ public class ToDoListController implements Initializable {
     }
 
     public void getFromFile() {
-
         try (Scanner fileReader = new Scanner(Paths.get("log.txt"))) {
-
             while (fileReader.hasNextLine()) {
-
                 String logStr = fileReader.nextLine();
-
                 LocalEvent event = parseEvent(logStr);
 
                 if (!list.contains(event)) {
-
+                    if (event.getDescription().isEmpty()) {
+                        event.setDescription("Empty");
+                    }
                     list.add(event);
-
                 }
             }
+            eventList.setItems(list);
         } catch (IOException exceptionIOE) {
-
             System.out.println(exceptionIOE);
         }
     }
 
     private LocalEvent parseEvent(String logStr) {
-
         String[] parts = logStr.split(": ");
-
         LocalDate date = LocalDate.parse(parts[0]);
-
         String description = parts[1];
-
         return new LocalEvent(date, description);
-
     }
 }

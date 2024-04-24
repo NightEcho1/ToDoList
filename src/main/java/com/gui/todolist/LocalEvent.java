@@ -9,7 +9,7 @@ public class LocalEvent {
 
     public LocalEvent(LocalDate date, String description) {
         this.setDate(date);
-        this.setDescription(description);
+        this.setDescription(Objects.requireNonNullElse(description, ""));
     }
 
     public String getDescription() {
@@ -34,25 +34,17 @@ public class LocalEvent {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
-
         if (!(o instanceof LocalEvent)) return false;
-
         LocalEvent that = (LocalEvent) o;
-
         return Objects.equals(getDate(), that.getDate()) && Objects.equals(getDescription(), that.getDescription());
-
     }
 
     @Override
 
     public int hashCode() {
-
         return Objects.hash(getDate(), getDescription());
-
     }
-
 }
 
 
