@@ -3,8 +3,10 @@ package com.gui.todolist;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+
 
 public class TDLApplication extends Application {
     @Override
@@ -12,6 +14,8 @@ public class TDLApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(TDLApplication.class.getResource("gui-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("ToDoList");
+        Image icon = new Image("file:todolistIcon.png");
+        stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();
     }
